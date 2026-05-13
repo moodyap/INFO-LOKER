@@ -4,32 +4,41 @@
   <title>Info Loker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* --- CSS UNTUK TAMPILAN --- */
     body { background: rgb(228, 185, 211); font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    .popup { display: none; position: fixed; inset: 0; background: rgba(255,220,235,0.97); z-index: 999; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
+    
+    /* Popup Iklan (Muncul setelah klik box) */
+    .popup { display: none; position: fixed; inset: 0; background: rgba(255,220,235,0.97); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
     .popup.active { display: flex; }
+    
     .popup-box { background: white; border: 2px solid #f4a7c0; border-radius: 20px; padding: 28px 22px; max-width: 360px; width: 100%; text-align: center; }
     .popup-box h2 { color: #c2607a; font-size: 1.1rem; margin-bottom: 8px; }
     .popup-box p { color: #888; font-size: 0.75rem; line-height: 1.7; margin-bottom: 12px; }
+    
+    /* Tombol-tombol */
     .btn-iklan { display: block; background: #f4a7c0; color: white; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; text-align: center; margin-top: 8px; }
     .btn-lanjut { display: none; width: 100%; background: #78c478; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer; margin-top: 8px; }
     .timer-text { font-size: 0.68rem; color: #bbb; margin-top: 8px; }
-    .header { background: #f4a7c0; text-align: center; padding: 24px 16px; border-bottom: 2px solid #e87fa5; }
-    .header h1 { color: white; font-size: 1.5rem; margin: 0; }
-    .header p { color: white; font-size: 0.8rem; margin-top: 6px; }
+    
+    .header { background: #f4a7c0; text-align: center; padding: 24px 16px; border-bottom: 2px solid #e87fa5; color: white; }
     .content { padding: 16px; max-width: 480px; margin: 0 auto; }
-    .box { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 18px; margin-bottom: 16px; cursor: pointer; }
+    
+    /* Desain Box Loker */
+    .box { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 18px; margin-bottom: 16px; cursor: pointer; transition: 0.3s; }
+    .box:hover { border-color: #f4a7c0; }
     .box-title { font-size: 1rem; font-weight: bold; color: #c2607a; margin-bottom: 6px; }
     .box-preview { font-size: 0.72rem; color: #999; line-height: 1.6; }
     .box-arrow { text-align: right; color: #f4a7c0; font-size: 1.2rem; margin-top: 6px; }
+    
+    /* Bagian Detail (Tersembunyi di awal) */
     .detail { display: none; margin-top: 14px; border-top: 1.5px dashed #f4d0dc; padding-top: 14px; }
-    .detail.active { display: block; }
+    .detail.active { display: block; animation: fadeIn 0.5s; }
     .info-value { font-size: 0.73rem; color: #5a3d48; font-weight: bold; line-height: 1.9; white-space: pre-line; display: block; }
+    
     .btn-daftar { display: block; background: #f4a7c0; color: white; text-decoration: none; padding: 13px; border-radius: 10px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-top: 14px; }
     .btn-wa { display: block; background: #78c478; color: white; text-decoration: none; padding: 13px; border-radius: 10px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-top: 10px; }
-    .group-section { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 18px; margin: 8px 0 20px; text-align: center; }
-    .group-section h3 { color: #c2607a; font-size: 0.9rem; margin-bottom: 4px; }
-    .group-section p { color: #d4a0b0; font-size: 0.68rem; margin-bottom: 14px; }
-    .btn-group { display: block; background: #78c478; color: white; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 8px; }
+    
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
@@ -37,236 +46,84 @@
   <div class="popup" id="popup">
     <div class="popup-box">
       <div>🌸</div>
-      <h2>Bentar ya!</h2>
-      <p>Ada info menarik dulu nih sebelum lihat detail lokernya!</p>
-      <a class="btn-iklan" href="https://s.shopee.co.id/60OOXSEg0k" onclick="startTimer()">
-        👀 Intip dulu yuk
+      <h2>Intip Dulu Yuk!</h2>
+      <p>Lihat info menarik ini sebentar untuk membuka detail loker & tombol lamar.</p>
+      
+      <a class="btn-iklan" href="https://s.shopee.co.id/60OOXSEg0k" target="_blank" onclick="startTimer()">
+        👀 CEK SEKARANG
       </a>
+
       <button class="btn-lanjut" id="lanjutBtn" onclick="closePopup()">
-        ✅ Sudah Lihat — Lanjut!
+        ✅ Sudah Lihat — Lanjut Ke Loker
       </button>
-      <p class="timer-text" id="timerText">Klik link di atas dulu ya!</p>
+
+      <p class="timer-text" id="timerText">Klik tombol di atas dulu ya!</p>
     </div>
   </div>
 
   <div class="header">
     <h1>💼 Info Loker</h1>
-    <p>Info loker terpercaya 🌸</p>
+    <p>Terupdate & Terpercaya 🌸</p>
   </div>
 
   <div class="content">
 
-    <!-- LOKER 1 -->
-    <div class="box" onclick="openPopup('detail-1')">
-      <div class="box-title">💼 Planner Senior</div>
-      <div class="box-preview">Handle Project Konser besar</div>
-      <div class="box-arrow">›</div>
+    <div class="box" onclick="prepareOpen('detail-1')">
+      <div class="box-title">💼 Marketing Specialist</div>
+      <div class="box-preview">Handle brand besar & social media ads...</div> <div class="box-arrow">Lihat Selengkapnya ›</div>
     </div>
     <div class="detail" id="detail-1">
-      <span class="info-value">Need Planner Senior yang biasa handle Project Konser besar.</span>
-      <a class="btn-wa" href="https://wa.me/6282112341110" target="_blank">📲 Chat via WhatsApp</a>
+      <span class="info-value">
+        Kualifikasi Lengkap:
+        - Pengalaman minimal 2 tahun
+        - Jago Meta & TikTok Ads
+        - Penempatan Jakarta (Hybrid)
+        - Salary Negotiable
+      </span>
+      <a class="btn-wa" href="https://wa.me/62812345678" target="_blank">📲 Daftar via WhatsApp</a>
     </div>
 
-    <!-- LOKER 2 -->
-    <div class="box" onclick="openPopup('detail-2')">
-      <div class="box-title">✍️ Copywriter – Panen Maya</div>
-      <div class="box-preview">Creative Agency · Digital & Offline</div>
-      <div class="box-arrow">›</div>
+    <div class="box" onclick="prepareOpen('detail-2')">
+      <div class="box-title">🎥 Host Live Stream</div>
+      <div class="box-preview">Wanita, 18-25th, Ceria & Komunikatif...</div>
+      <div class="box-arrow">Lihat Selengkapnya ›</div>
     </div>
     <div class="detail" id="detail-2">
-      <span class="info-value">Panen Maya is Hiring Copywriter!
-
-Kami adalah Creative Agency yang menawarkan layanan digital dan offline.
-
-Tanggung jawab:
-- Menyusun konsep & naskah konten
-- Menyunting & mengoreksi ejaan, tata bahasa
-- Mengoptimalkan copy sesuai tone of voice merek
-- Menghasilkan ide konten kreatif
-- Berkolaborasi dengan tim desain & pemasaran
-- Stay updated dengan tren media sosial
-
-Kirim CV ke career@panenmaya.com
-Subject: Name_Copywriter (Contoh: Nina_Copywriter)</span>
-      <a class="btn-daftar" href="mailto:career@panenmaya.com">📧 Kirim Lamaran via Email</a>
-    </div>
-
-    <!-- LOKER 3 -->
-    <div class="box" onclick="openPopup('detail-3')">
-      <div class="box-title">🎥 Host Live Online – Fashion</div>
-      <div class="box-preview">📍 Srengseng, Jakarta Barat · Perempuan 17-30th</div>
-      <div class="box-arrow">›</div>
-    </div>
-    <div class="detail" id="detail-3">
-      <span class="info-value">[DIBUTUHKAN SEGERA]
-
-Syarat:
-* Perempuan (Open to Hijab dan Non-Hijab)
-* Usia 17–30 tahun
-* Bersedia kerja jam 09.00–17.00
-* Penampilan menarik & murah senyum
-* Ceria, komunikatif, tanggap menjelaskan produk
-* Pengalaman host live (khususnya TikTok Shop)
-
-🎥 Live On: Shopee / TikTok
-📍 Lokasi: Srengseng, Jakarta Barat
-
-Kirim CV, foto terbaru & sample video live via WhatsApp</span>
-      <a class="btn-wa" href="https://wa.me/6282123455297" target="_blank">📲 Chat via WhatsApp</a>
-    </div>
-
-    <!-- LOKER 4 -->
-    <div class="box" onclick="openPopup('detail-4')">
-      <div class="box-title">🎨 Senior Animator & 3D Motion – SUKA ANIMA</div>
-      <div class="box-preview">Full Time & Intern · Deadline 15 Mei 2026</div>
-      <div class="box-arrow">›</div>
-    </div>
-    <div class="detail" id="detail-4">
-      <span class="info-value">SUKA ANIMA sedang mencari:
-- [Full Time] Senior Animator
-- [Intern] 3D Motion
-
-Kirimkan portofolio kamu segera!
-📅 Deadline: 15 Mei 2026</span>
-      <a class="btn-daftar" href="mailto:info@sukastudio.id">📧 Kirim Portofolio via Email</a>
-    </div>
-
-    <!-- LOKER 5 -->
-    <div class="box" onclick="openPopup('detail-5')">
-      <div class="box-title">📊 Marketing Manager – F&B</div>
-      <div class="box-preview">Berpengalaman di bidang F&B</div>
-      <div class="box-arrow">›</div>
-    </div>
-    <div class="detail" id="detail-5">
-      <span class="info-value">Dicari Marketing Manager berpengalaman di bidang F&B.
-
-Kirim CV terbaru ke:
-hrga@filadelfiajakarta.com
-Subject: T_Marketing Manager - [Your Name]</span>
-      <a class="btn-daftar" href="mailto:hrga@filadelfiajakarta.com">📧 Kirim Lamaran via Email</a>
-    </div>
-
-    <!-- LOKER 6 -->
-    <div class="box" onclick="openPopup('detail-6')">
-      <div class="box-title">🎪 Event Organizer & Creative – PT Dynamic Orva</div>
-      <div class="box-preview">📍 Ciputat, South Tangerang · 7 Posisi</div>
-      <div class="box-arrow">›</div>
-    </div>
-    <div class="detail" id="detail-6">
-      <span class="info-value">Open Positions:
-1. Senior Account Executive
-2. Account Executive
-3. Event Planner
-4. Show Specialist
-5. Venue Specialist
-6. Registration Specialist
-7. Account Planner
-
-📍 Ciputat, South Tangerang
-⏳ Urgent – Immediate joiners preferred</span>
-      <a class="btn-daftar" href="https://lnkd.in/gGcVWHGj" target="_blank">🌐 Apply di sini!</a>
-    </div>
-
-    <!-- LOKER 7 -->
-    <div class="box" onclick="openPopup('detail-7')">
-      <div class="box-title">💼 Account Manager</div>
-      <div class="box-preview">📍 South Jakarta · Hybrid</div>
-      <div class="box-arrow">›</div>
-    </div>
-    <div class="detail" id="detail-7">
-      <span class="info-value">📍 South Jakarta | 🧑‍💻 Hybrid
-
-Kamu yang kami cari:
-✔️ Bisa baca kebutuhan klien
-✔️ Komunikator yang clear & charismatic
-✔️ Jago negosiasi & persuasi
-✔️ Project juggler & time manager
-✔️ Kreatif dari ide besar sampai budget
-✔️ Problem-solver
-✔️ Leader yang tahu kapan harus dengerin & kapan harus lead
-✔️ Tenang di bawah tekanan</span>
-      <a class="btn-daftar" href="mailto:career@naisu.id">📧 Kirim Lamaran via Email</a>
-    </div>
-
-    <!-- LOKER 8 -->
-    <div class="box" onclick="openPopup('detail-8')">
-      <div class="box-title">📱 Social Media Specialist – Pause & Rebuild</div>
-      <div class="box-preview">Skill & good portfolio required</div>
-      <div class="box-arrow">›</div>
-    </div>
-    <div class="detail" id="detail-8">
-      <span class="info-value">Dicari Social Media Specialist untuk akun sosial media Pause & Rebuild.
-
-Dibutuhkan skill & good portfolio.
-
-Kirim CV ke: reinita.hariyanti@gmail.com</span>
-      <a class="btn-daftar" href="mailto:reinita.hariyanti@gmail.com">📧 Kirim Lamaran via Email</a>
-    </div>
-
-    <!-- LOKER 9 -->
-    <div class="box" onclick="openPopup('detail-9')">
-      <div class="box-title">🎥 Host Live – Bandung</div>
-      <div class="box-preview">Gaji UMR + Komisi + BPJS</div>
-      <div class="box-arrow">›</div>
-    </div>
-    <div class="detail" id="detail-9">
-      <span class="info-value">Dicari Host Live untuk daerah Bandung.
-
-Benefit:
-- Gaji UMR Bandung
-- Komisi GMV
-- BPJS Kesehatan
-- BPJS Ketenagakerjaan</span>
-      <a class="btn-wa" href="https://wa.me/6208561121997" target="_blank">📲 Chat via WhatsApp</a>
-    </div>
-
-    <!-- COPY BLOK INI TIAP ADA LOKER BARU -->
-    <!--
-    <div class="box" onclick="openPopup('detail-10')">
-      <div class="box-title">💼 NAMA POSISI</div>
-      <div class="box-preview">Info singkat...</div>
-      <div class="box-arrow">›</div>
-    </div>
-    <div class="detail" id="detail-10">
-      <span class="info-value">Info lengkap di sini...</span>
-      <a class="btn-daftar" href="https://LINK.com" target="_blank">🌐 Daftar di sini!</a>
-    </div>
-    -->
-
-    <div class="group-section">
-      <h3>🌸 Gabung Grup Kami</h3>
-      <p>Dapat info loker lebih cepat!</p>
-      <a class="btn-group" href="https://chat.whatsapp.com/FFabFQqDoO4HonfpPx0HSs?mode=gi_t" target="_blank">💼 Grup Riset & Casting</a>
-      <a class="btn-group" href="https://chat.whatsapp.com/BqkkMvn5FmjHcrqcsMVaCj" target="_blank">🎁 Grup Free Produk</a>
+      <span class="info-value">
+        Kebutuhan:
+        - Bersedia jadwal shift
+        - Good looking & jago jualan
+        - Lokasi: Bandung
+      </span>
+      <a class="btn-daftar" href="mailto:hrd@perusahaan.com">📧 Lamar via Email</a>
     </div>
 
   </div>
 
   <script>
-    let currentDetail = null;
+    let targetDetailId = null; // Menyimpan ID loker mana yang mau dibuka
     let timerDone = false;
 
-    function openPopup(detailId) {
-      currentDetail = detailId;
+    // Fungsi saat Kotak Loker diklik
+    function prepareOpen(detailId) {
+      targetDetailId = detailId; // Catat targetnya
       timerDone = false;
+      
+      // Reset tampilan popup
       document.getElementById('lanjutBtn').style.display = 'none';
-      document.getElementById('timerText').textContent = 'Klik link di atas dulu ya!';
+      document.getElementById('timerText').textContent = 'Klik tombol di atas dulu ya!';
+      
+      // Munculkan iklan
       document.getElementById('popup').classList.add('active');
     }
 
-    function closePopup() {
-      document.getElementById('popup').classList.remove('active');
-      if (currentDetail) {
-        document.getElementById(currentDetail).classList.add('active');
-        currentDetail = null;
-      }
-    }
-
+    // Fungsi Timer Iklan
     function startTimer() {
       if (timerDone) return;
       let sisa = 5;
       const timerText = document.getElementById('timerText');
       const lanjutBtn = document.getElementById('lanjutBtn');
+      
       timerText.textContent = 'Tunggu ' + sisa + ' detik...';
       const interval = setInterval(() => {
         sisa--;
@@ -275,9 +132,27 @@ Benefit:
           clearInterval(interval);
           timerDone = true;
           lanjutBtn.style.display = 'block';
-          timerText.textContent = '✅ Yeay bisa lanjut!';
+          timerText.textContent = '✅ Yeay, sekarang bisa lanjut!';
         }
       }, 1000);
+    }
+
+    // Fungsi setelah Klik "Lanjut"
+    function closePopup() {
+      // Sembunyikan Popup Iklan
+      document.getElementById('popup').classList.remove('active');
+      
+      // Tutup semua detail lain (biar rapi hanya 1 yang terbuka)
+      document.querySelectorAll('.detail').forEach(d => d.classList.remove('active'));
+      
+      // Buka detail loker yang dituju
+      if (targetDetailId) {
+        const targetElement = document.getElementById(targetDetailId);
+        targetElement.classList.add('active');
+        
+        // Scroll otomatis ke detailnya biar user nggak bingung
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
   </script>
 
