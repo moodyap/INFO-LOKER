@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Info Loker</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { background: rgb(228, 185, 211); font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .popup { display: none; position: fixed; inset: 0; background: rgba(255,220,235,0.97); z-index: 999; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
+    .popup.active { display: flex; }
+    .popup-box { background: white; border: 2px solid #f4a7c0; border-radius: 20px; padding: 28px 22px; max-width: 360px; width: 100%; text-align: center; }
+    .popup-box h2 { color: #c2607a; font-size: 1.1rem; margin-bottom: 8px; }
+    .popup-box p { color: #888; font-size: 0.75rem; line-height: 1.7; margin-bottom: 12px; }
+    .btn-iklan { display: block; background: #f4a7c0; color: white; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; text-align: center; margin-top: 8px; }
+    .btn-lanjut-popup { display: none; width: 100%; background: #78c478; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer; margin-top: 8px; }
+    .timer-text { font-size: 0.68rem; color: #bbb; margin-top: 8px; }
+    .header { background: #f4a7c0; text-align: center; padding: 24px 16px; border-bottom: 2px solid #e87fa5; }
+    .header h1 { color: white; font-size: 1.5rem; margin: 0; }
+    .header p { color: white; font-size: 0.8rem; margin-top: 6px; }
+    .content { padding: 16px; max-width: 480px; margin: 0 auto; }
+    .box-outer { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 16px 18px; margin-bottom: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+    .box-outer.open { border-radius: 16px 16px 0 0; border-bottom: none; }
+    .box-outer:hover { background: #fff5f8; }
+    .box-outer-left { flex: 1; }
+    .box-title { font-size: 0.95rem; font-weight: bold; color: #c2607a; margin-bottom: 4px; }
+    .box-preview { font-size: 0.70rem; color: #aaa; line-height: 1.5; }
+    .box-arrow { color: #f4a7c0; font-size: 1.4rem; margin-left: 10px; transition: transform 0.2s; }
+    .box-arrow.open { transform: rotate(90deg); }
+    .box-detail { display: none; background: #fff9fb; border: 1.5px solid #f4d0dc; border-top: none; border-radius: 0 0 16px 16px; padding: 16px 18px; margin-bottom: 16px; }
+    .box-detail.active { display: block; }
+    .info-value { font-size: 0.73rem; color: #5a3d48; font-weight: 600; line-height: 1.9; white-space: pre-line; display: block; }
+    .btn-lamar { display: block; background: #f4a7c0; color: white; text-decoration: none; padding: 13px; border-radius: 10px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-top: 14px; border: none; cursor: pointer; width: 100%; }
+    .btn-wa-lamar { display: block; background: #78c478; color: white; text-decoration: none; padding: 13px; border-radius: 10px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-top: 10px; border: none; cursor: pointer; width: 100%; }
+    .group-section { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 18px; margin: 16px 0 20px; text-align: center; }
+    .group-section h3 { color: #c2607a; font-size: 0.9rem; margin-bottom: 4px; }
+    .group-section p { color: #d4a0b0; font-size: 0.68rem; margin-bottom: 14px; }
+    .btn-group { display: block; background: #78c478; color: white; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="popup" id="popup">
+    <div class="popup-box">
+      <div>🌸</div>
+      <h2>Ads dulu ya!</h2>
+      <p>Sebelum akses info lengkap lokernya</p>
+      <a class="btn-iklan" href="https://s.shopee.co.id/8KmJXitBHN" target="_blank" onclick="startTimer()">
+        👀 Lihat Ads
+      </a>
+      <button class="btn-lanjut-popup" id="lanjutBtn" onclick="closePopup()">
+        ✅ Sudah Lihat — Lanjut!
+      </button>
+      <p class="timer-text" id="timerText">Klik link di atas dulu ya!</p>
+    </div>
+  </div>
+
+  <div class="header">
+    <h1>💼 Info Loker</h1>
+    <p>Info loker terpercaya 🌸</p>
+  </div>
+
+  <div class="content">
+
+    <!-- LOKER 1 -->
+    <div class="box-outer" id="outer-d1" onclick="toggleDetail('d1')">
+      <div class="box-outer-left">
+        <div class="box-title">💼 Planner Senior</div>
+        <div class="box-preview">Handle Project Konser Besar · Jakarta</div>
+      </div>
+      <div class="box-arrow" id="arrow-d1">›</div>
+    </div>
+    <div class="box-detail" id="d1">
+      <span class="info-value">Lowongan Kerja
+
+Planner Senior
+
+Need Planner Senior yang biasa handle Project Konser besar.
+WA: 082112341110</span>
+      <button class="btn-wa-lamar" onclick="openPopup('https://wa.me/6282112341110')">📲 Lamar via WhatsApp</button>
+    </div>
+
+    <!-- LOKER 2 -->
+    <div class="box-outer" id="outer-d2" onclick="toggleDetail('d2')">
+      <div class="box-outer-left">
+        <div class="box-title">✍️ Copywriter – Panen Maya</div>
+        <div class="box-preview">Creative Agency · Digital & Offline</div>
+      </div>
+      <div class="box-arrow" id="arrow-d2">›</div>
+    </div>
+    <div class="box-detail" id="d2">
+      <span class="info-value">Lowongan Kerja Copywriter
+
+Panen Maya is Hiring Copywriter
+
+Kami adalah Creative Agency yang menawarkan layanan digital dan offline. Kami mencari profesional yang dinamis dan kreatif yang siap bergabung dengan tim kami.
+
+Tanggung jawab:
+- Menyusun konsep dan naskah konten untuk postingan, caption, iklan, carousel, video pendek, dan format konten lainnya
+- Menyunting, mengoreksi ejaan, tata bahasa, dan menyempurnakan gaya penulisan agar profesional dan kredibel
+- Mengoptimalkan copy agar sesuai dengan tone of voice merek dan persona audiens di setiap platform
+- Menghasilkan ide konten kreatif yang relevan dengan kampanye, promo, peluncuran produk, dan tren terkini
+- Berkolaborasi dengan tim desain grafis, videograf, dan tim pemasaran untuk memastikan eksekusi visual dan copy yang kohesif
+- Stay updated dengan tren media sosial, algoritma platform, dan praktik terbaik konten digital
+
+Subject email: Name_Copywriter
+Contoh: Nina_Copywriter</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:career@panenmaya.com')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 3 -->
+    <div class="box-outer" id="outer-d3" onclick="toggleDetail('d3')">
+      <div class="box-outer-left">
+        <div class="box-title">🎥 Host Live Online – Fashion</div>
+        <div class="box-preview">📍 Srengseng, Jakarta Barat · Perempuan 17-30th</div>
+      </div>
+      <div class="box-arrow" id="arrow-d3">›</div>
+    </div>
+    <div class="box-detail" id="d3">
+      <span class="info-value">Lowongan Kerja Host Live Online
+
+[DIBUTUHKAN SEGERA]
+
+Halo, saat ini kami membuka lowongan kerja untuk posisi karyawan host live online untuk produk fashion.
+
+Syarat:
+* Perempuan (Open to Hijab dan Non-Hijab)
+* Usia 17 s.d 30 tahun
+* Bersedia untuk bekerja di jam 09.00 - 17.00
+* Penampilan menarik dan murah senyum
+* Ceria, komunikatif, dan tanggap dalam menjelaskan produk kepada audience
+* Memiliki pengalaman menjadi host live (khususnya di TikTok Shop)
+
+🎥 Live On: Shopee / TikTok
+📍 Lokasi Kerja: Srengseng, Jakarta Barat
+
+Lampirkan CV, foto terbaru, dan sample video live yang pernah dilakukan</span>
+      <button class="btn-wa-lamar" onclick="openPopup('https://wa.me/6282123455297')">📲 Lamar via WhatsApp</button>
+    </div>
+
+    <!-- LOKER 4 -->
+    <div class="box-outer" id="outer-d4" onclick="toggleDetail('d4')">
+      <div class="box-outer-left">
+        <div class="box-title">🎨 Senior Animator & 3D Motion – SUKA ANIMA</div>
+        <div class="box-preview">Full Time & Intern · Deadline 15 Mei 2026</div>
+      </div>
+      <div class="box-arrow" id="arrow-d4">›</div>
+    </div>
+    <div class="box-detail" id="d4">
+      <span class="info-value">Lowongan Kerja
+
+SUKA ANIMA sedang mencari kandidat untuk bergabung menjadi tim kami:
+
+- [Full Time] Senior Animator
+- [Intern] 3D Motion
+
+📅 Deadline pengiriman: 15 Mei 2026
+
+Kirimkan portofolio kamu segera!</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:info@sukastudio.id')">📧 Kirim Portofolio via Email</button>
+    </div>
+
+    <!-- LOKER 5 -->
+    <div class="box-outer" id="outer-d5" onclick="toggleDetail('d5')">
+      <div class="box-outer-left">
+        <div class="box-title">📊 Marketing Manager – F&B</div>
+        <div class="box-preview">Berpengalaman di bidang F&B</div>
+      </div>
+      <div class="box-arrow" id="arrow-d5">›</div>
+    </div>
+    <div class="box-detail" id="d5">
+      <span class="info-value">Lowongan Kerja
+
+Kami sedang mencari Marketing Manager yang berpengalaman di bidang F&B.
+
+Kalau kamu tertarik atau ada kenalan yang sesuai, silakan kirim CV terbaru.
+
+Subject email: T_Marketing Manager - [Your Name]</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:hrga@filadelfiajakarta.com')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 6 -->
+    <div class="box-outer" id="outer-d6" onclick="toggleDetail('d6')">
+      <div class="box-outer-left">
+        <div class="box-title">🎪 Event Organizer – PT Dynamic Orva Indonesia</div>
+        <div class="box-preview">📍 Ciputat, South Tangerang · 7 Posisi · Urgent</div>
+      </div>
+      <div class="box-arrow" id="arrow-d6">›</div>
+    </div>
+    <div class="box-detail" id="d6">
+      <span class="info-value">Lowongan Kerja
+
+PT Dynamic Orva Indonesia
+
+We are looking for talented individuals to join our Event Organizer, Creative & Digital Media team.
+
+Open Positions:
+1. Senior Account Executive
+2. Account Executive
+3. Event Planner
+4. Show Specialist
+5. Venue Specialist
+6. Registration Specialist
+7. Account Planner
+
+📍 Ciputat, South Tangerang
+⏳ Urgent – Immediate joiners preferred</span>
+      <button class="btn-lamar" onclick="openPopup('https://lnkd.in/gGcVWHGj')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- LOKER 7 -->
+    <div class="box-outer" id="outer-d7" onclick="toggleDetail('d7')">
+      <div class="box-outer-left">
+        <div class="box-title">💼 Account Manager</div>
+        <div class="box-preview">📍 South Jakarta · Hybrid</div>
+      </div>
+      <div class="box-arrow" id="arrow-d7">›</div>
+    </div>
+    <div class="box-detail" id="d7">
+      <span class="info-value">Lowongan Kerja
+
+Account Manager
+📍 South Jakarta | 🧑‍💻 Hybrid setup
+
+We're on the hunt for an Account Manager who's got that rare mix of brains, heart, and hustle. Someone who can talk the talk with clients, lead a team like a boss, and still have enough brainpower left to crack smart strategies & budget like a pro.
+
+What You'll Be Rockin':
+1. Crafting and executing communication strategies that actually work
+2. Handling budgets like it's Monopoly money (but real)
+3. Leading projects and teams like a champ
+4. Collaborating across teams (yes, even the artsy ones)
+5. Reading market trends like your daily horoscope
+6. Keeping projects on point, on time, and on brand
+
+You if you're the one:
+✔️ Can read between the lines of what clients say and what they actually need
+✔️ Clear. Concise. Charismatic communicator ✨
+✔️ Master of persuasion and lowkey negotiation ninja
+✔️ Project juggler, time manager, and admin whiz
+✔️ Creative AF – from big ideas to smart spending
+✔️ Problem-solver and solution-builder
+✔️ Born leader who knows when to listen and when to lead
+✔️ Chill under pressure and flexible like Sunday plans</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:career@naisu.id')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 8 -->
+    <div class="box-outer" id="outer-d8" onclick="toggleDetail('d8')">
+      <div class="box-outer-left">
+        <div class="box-title">📱 Social Media Specialist – Pause & Rebuild</div>
+        <div class="box-preview">Skill & good portfolio required</div>
+      </div>
+      <div class="box-arrow" id="arrow-d8">›</div>
+    </div>
+    <div class="box-detail" id="d8">
+      <span class="info-value">Lowongan Kerja
+
+Kami sedang mencari Social Media Specialist untuk akun sosial media Pause & Rebuild.
+
+Jika kamu punya skill & good portfolio, atau kenal seseorang yang punya experience di sana, silakan kirim CV.</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:reinita.hariyanti@gmail.com')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 9 -->
+    <div class="box-outer" id="outer-d9" onclick="toggleDetail('d9')">
+      <div class="box-outer-left">
+        <div class="box-title">🎥 Host Live – Bandung</div>
+        <div class="box-preview">Gaji UMR Bandung + Komisi GMV + BPJS</div>
+      </div>
+      <div class="box-arrow" id="arrow-d9">›</div>
+    </div>
+    <div class="box-detail" id="d9">
+      <span class="info-value">Lowongan Kerja
+
+Dicari Host Live untuk daerah Bandung.
+
+Benefit:
+- Gaji UMR Bandung
+- Komisi GMV
+- BPJS Kesehatan
+- BPJS Ketenagakerjaan</span>
+      <button class="btn-wa-lamar" onclick="openPopup('https://wa.me/6208561121997')">📲 Lamar via WhatsApp</button>
+    </div>
+
+    <!-- =============================================
+    TEMPLATE LOKER BARU — COPY DARI SINI
+    Ganti nomor d10, d11, dst (harus urut!)
+    =============================================
+    <div class="box-outer" id="outer-d10" onclick="toggleDetail('d10')">
+      <div class="box-outer-left">
+        <div class="box-title">💼 NAMA POSISI</div>
+        <div class="box-preview">Info singkat · Lokasi</div>
+      </div>
+      <div class="box-arrow" id="arrow-d10">›</div>
+    </div>
+    <div class="box-detail" id="d10">
+      <span class="info-value">Paste info loker lengkap di sini.
+Jangan tulis cara daftar — sudah ada di tombol!</span>
+      <button class="btn-wa-lamar" onclick="openPopup('https://wa.me/62xxx')">📲 Lamar via WhatsApp</button>
+    </div>
+    ============================================= -->
+
+    <div class="group-section">
+      <h3>🌸 Gabung Grup Kami</h3>
+      <p>Dapat info loker lebih cepat!</p>
+      <a class="btn-group" href="https://chat.whatsapp.com/FFabFQqDoO4HonfpPx0HSs?mode=gi_t" target="_blank">💼 Grup Riset & Casting</a>
+      <a class="btn-group" href="https://chat.whatsapp.com/BqkkMvn5FmjHcrqcsMVaCj" target="_blank">🎁 Grup Free Produk</a>
+    </div>
+
+  </div>
+
+  <script>
+    let targetLink = null;
+    let timerDone = false;
+
+    function toggleDetail(id) {
+      const detail = document.getElementById(id);
+      const arrow = document.getElementById('arrow-' + id);
+      const outer = document.getElementById('outer-' + id);
+      const isActive = detail.classList.contains('active');
+      document.querySelectorAll('.box-detail').forEach(d => d.classList.remove('active'));
+      document.querySelectorAll('.box-arrow').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.box-outer').forEach(o => o.classList.remove('open'));
+      if (!isActive) {
+        detail.classList.add('active');
+        arrow.classList.add('open');
+        outer.classList.add('open');
+      }
+    }
+
+    function openPopup(link) {
+      targetLink = link;
+      timerDone = false;
+      document.getElementById('lanjutBtn').style.display = 'none';
+      document.getElementById('timerText').textContent = 'Klik link di atas dulu ya!';
+      document.getElementById('popup').classList.add('active');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('active');
+      if (targetLink) {
+        window.open(targetLink, '_blank');
+        targetLink = null;
+      }
+    }
+
+    function startTimer() {
+      if (timerDone) return;
+      let sisa = 5;
+      const timerText = document.getElementById('timerText');
+      const lanjutBtn = document.getElementById('lanjutBtn');
+      timerText.textContent = 'Tunggu ' + sisa + ' detik...';
+      const interval = setInterval(() => {
+        sisa--;
+        timerText.textContent = 'Tunggu ' + sisa + ' detik...';
+        if (sisa <= 0) {
+          clearInterval(interval);
+          timerDone = true;
+          lanjutBtn.style.display = 'block';
+          timerText.textContent = '✅ Yeay bisa lanjut!';
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
