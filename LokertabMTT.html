@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <title>Info Loker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; }
+    body { background: rgb(228, 185, 211); font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .popup { display: none; position: fixed; inset: 0; background: rgba(255,220,235,0.97); z-index: 999; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
+    .popup.active { display: flex; }
+    .popup-box { background: white; border: 2px solid #f4a7c0; border-radius: 20px; padding: 28px 22px; max-width: 360px; width: 100%; text-align: center; }
+    .popup-box h2 { color: #c2607a; font-size: 1.1rem; margin-bottom: 8px; }
+    .popup-box p { color: #888; font-size: 0.75rem; line-height: 1.7; margin-bottom: 12px; }
+    .btn-iklan { display: block; background: #f4a7c0; color: white; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; text-align: center; margin-top: 8px; }
+    .btn-lanjut-popup { display: none; width: 100%; background: #78c478; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer; margin-top: 8px; }
+    .timer-text { font-size: 0.68rem; color: #bbb; margin-top: 8px; }
+    .header { background: #f4a7c0; text-align: center; padding: 24px 16px; border-bottom: 2px solid #e87fa5; }
+    .header h1 { color: white; font-size: 1.5rem; margin: 0; }
+    .header p { color: white; font-size: 0.8rem; margin-top: 6px; }
+    .content { padding: 16px; max-width: 480px; margin: 0 auto; }
+    .box-outer { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 16px 18px; margin-bottom: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+    .box-outer.open { border-radius: 16px 16px 0 0; border-bottom: none; }
+    .box-outer:hover { background: #fff5f8; }
+    .box-outer-left { flex: 1; }
+    .box-title { font-size: 0.95rem; font-weight: bold; color: #c2607a; margin-bottom: 4px; }
+    .box-preview { font-size: 0.70rem; color: #aaa; line-height: 1.5; }
+    .box-arrow { color: #f4a7c0; font-size: 1.4rem; margin-left: 10px; transition: transform 0.2s; }
+    .box-arrow.open { transform: rotate(90deg); }
+    .box-detail { display: none; background: #fff9fb; border: 1.5px solid #f4d0dc; border-top: none; border-radius: 0 0 16px 16px; padding: 16px 18px; margin-bottom: 16px; }
+    .box-detail.active { display: block; }
+    .info-value { font-size: 0.73rem; color: #5a3d48; font-weight: bold; line-height: 1.9; white-space: pre-line; display: block; }
+    .btn-lamar { display: block; background: #f4a7c0; color: white; text-decoration: none; padding: 13px; border-radius: 10px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-top: 14px; border: none; cursor: pointer; width: 100%; }
+    .btn-wa-lamar { display: block; background: #78c478; color: white; text-decoration: none; padding: 13px; border-radius: 10px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-top: 10px; border: none; cursor: pointer; width: 100%; }
+    .group-section { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 18px; margin: 16px 0 20px; text-align: center; }
+    .group-section h3 { color: #c2607a; font-size: 0.9rem; margin-bottom: 4px; }
+    .group-section p { color: #d4a0b0; font-size: 0.68rem; margin-bottom: 14px; }
+    .btn-group { display: block; background: #78c478; color: white; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="popup" id="popup">
+    <div class="popup-box">
+      <div>🌸</div>
+      <h2>Bentar ya!</h2>
+      <p>Ads dulu ya, sebelum akses info lengkap lokernya! 🌸</p>
+      <a class="btn-iklan" href="https://s.shopee.co.id/7KtnSY1SDN" target="_blank" onclick="startTimer()">
+        👀 Intip dulu yuk
+      </a>
+      <button class="btn-lanjut-popup" id="lanjutBtn" onclick="closePopup()">
+        ✅ Sudah Lihat — Lanjut Lamar!
+      </button>
+      <p class="timer-text" id="timerText">Klik link di atas dulu ya!</p>
+    </div>
+  </div>
+
+  <div class="header">
+    <h1>💼 Info Loker</h1>
+    <p>Info loker terpercaya 🌸</p>
+  </div>
+
+  <div class="content">
+
+    <!-- LOKER 1 -->
+    <div class="box-outer" id="outer-d1" onclick="toggleDetail('d1')">
+      <div class="box-outer-left">
+        <div class="box-title">🌿 Kalbe Farma – Multi Posisi</div>
+        <div class="box-preview">Administration, QA, R&D, Production, PMO</div>
+      </div>
+      <div class="box-arrow" id="arrow-d1">›</div>
+    </div>
+    <div class="box-detail" id="d1">
+      <span class="info-value">📢 WE ARE HIRING!
+
+Open Position
+Administration
+Quality Assurance Inspector
+R&D Pharma Scientist
+Production Officer
+Project Management Officer R&D
+
+We're hiring Kalbestie! 🌱
+PT. Kalbe Farma Tbk (KF BO) membuka kesempatan untuk kamu yang siap bertumbuh dan berkembang bersama kami.
+Apply melalui website: www.kalbe.co.id → pilih menu Career.</span>
+      <button class="btn-lamar" onclick="openPopup('https://www.kalbe.co.id')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- LOKER 2 -->
+    <div class="box-outer" id="outer-d2" onclick="toggleDetail('d2')">
+      <div class="box-outer-left">
+        <div class="box-title">✝️ Sekolah Pelita Harapan – Guru</div>
+        <div class="box-preview">5 Kampus · Christian Education</div>
+      </div>
+      <div class="box-arrow" id="arrow-d2">›</div>
+    </div>
+    <div class="box-detail" id="d2">
+      <span class="info-value">SPH is Hiring! 📣✨
+
+As the new academic year approaches, we believe God is preparing the right people for the right calling. At our schools, teaching is more than a profession — it's a ministry. It's where faith meets excellence, and where educators are empowered to shape lives for Christ.
+
+We are building a Christ-centered community where teachers flourish, students thrive, and every lesson points back to His truth. If you're passionate about Christian education, committed to academic excellence, and ready to make an eternal impact — we would love to welcome you home.
+
+"Commit your work to the Lord, and your plans will be established." — Proverbs 16:3
+
+➡️ Swipe left to see vacancies across 5 of our campuses.
+✨ Step into your calling. Grow in purpose. Serve with impact.
+
+Apply now at 👉 careers-page.com/sekolah-pelita-harapan</span>
+      <button class="btn-lamar" onclick="openPopup('https://careers-page.com/sekolah-pelita-harapan')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- LOKER 3 -->
+    <div class="box-outer" id="outer-d3" onclick="toggleDetail('d3')">
+      <div class="box-outer-left">
+        <div class="box-title">💻 PT Charoen Pokphand – System Analyst</div>
+        <div class="box-preview">📍 Jakarta · FICO & Logistic</div>
+      </div>
+      <div class="box-arrow" id="arrow-d3">›</div>
+    </div>
+    <div class="box-detail" id="d3">
+      <span class="info-value">🚨 We're Hiring! 🚨
+
+PT Charoen Pokphand Indonesia Tbk is looking for a System Analyst (FICO & Logistic) to join our team!
+
+If you have experience in ERP systems, accounting flow, functional specification, and UAT/testing — we'd love to hear from you.
+
+📍 Placement: Jakarta
+🔗 Apply now: cpcareer.cp.co.id</span>
+      <button class="btn-lamar" onclick="openPopup('https://cpcareer.cp.co.id')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- LOKER 4 -->
+    <div class="box-outer" id="outer-d4" onclick="toggleDetail('d4')">
+      <div class="box-outer-left">
+        <div class="box-title">📚 Gramedia – Multi Posisi</div>
+        <div class="box-preview">Merchandising, Retail, People & Culture</div>
+      </div>
+      <div class="box-arrow" id="arrow-d4">›</div>
+    </div>
+    <div class="box-detail" id="d4">
+      <span class="info-value">Hai, Sobat Grameds 🤩✨
+
+Retail is no longer just about buying.
+It's about experience.
+
+Di Gramedia, kami membangun ruang retail yang lebih hidup, lebih relevan secara lokal, dan lebih dekat dengan manusia.
+
+Kami membuka kesempatan bagi kamu yang ingin ikut menjadi bagian dari perjalanan ini:
+
+• Book Category & Merchandising Strategist
+• Lifestyle Category Merchandising & Tenant Partnership Strategist
+• Retail Expansion & Spatial Development Strategist
+• People & Culture Strategist
+
+Be part of Gramedia's next chapter.
+Scan and apply now!
+
+https://www.kalibrr.com/c/kompas-gramedia/jobs/264797/people-culture-strategist-business-development-gramedia</span>
+      <button class="btn-lamar" onclick="openPopup('https://www.kalibrr.com/c/kompas-gramedia/jobs/264797/people-culture-strategist-business-development-gramedia')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- LOKER 5 -->
+    <div class="box-outer" id="outer-d5" onclick="toggleDetail('d5')">
+      <div class="box-outer-left">
+        <div class="box-title">🛒 Inafood – Purchasing Staff</div>
+        <div class="box-preview">📍 Sukorejo, Pasuruan, East Java</div>
+      </div>
+      <div class="box-arrow" id="arrow-d5">›</div>
+    </div>
+    <div class="box-detail" id="d5">
+      <span class="info-value">🚨 WE'RE HIRING! 🚨
+Kesempatan buat kamu yang siap berkembang, belajar, dan jadi bagian dari tim yang solid ✨
+
+Kualifikasi
+S1 Akuntansi/ Manajemen/ Administrasi Bisnis
+Memiliki pengalaman minimal 1 tahun sebagai Purchasing Staff
+Memahami dasar-dasar pengadaan barang dan jasa
+Mampu menggunakan software ERP/Purchasing System menjadi nilai tambah
+Dapat bergabung secepatnya
+
+Placement:
+Sukorejo, Pasuruan, East Java
+Send your CV to: recruitment@inafood.com
+Subject Email: PRC_IG</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:recruitment@inafood.com')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 6 -->
+    <div class="box-outer" id="outer-d6" onclick="toggleDetail('d6')">
+      <div class="box-outer-left">
+        <div class="box-title">🌱 Savoria – Multi Posisi</div>
+        <div class="box-preview">📍 Jakarta & Cikupa, Tangerang</div>
+      </div>
+      <div class="box-arrow" id="arrow-d6">›</div>
+    </div>
+    <div class="box-detail" id="d6">
+      <span class="info-value">Ready to grow together with Savoria?
+We're looking for passionate talents to join our team in these positions:
+
+✨ Regulatory SPV
+✨ Full Stack Developer
+✨ Production Operator
+✨ IT Infrastructure & Security
+
+At Savoria, you'll be part of a dynamic team, collaborative culture, and a place where you can grow while creating impact. 🌱
+
+📍 Placement:
+• Head Office Jakarta
+• Factory Cikupa, Tangerang (Production Operator)
+
+Think you're the one we're looking for?
+Apply now through the link 🔥
+bit.ly/ApplySavoria</span>
+      <button class="btn-lamar" onclick="openPopup('https://bit.ly/ApplySavoria')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- LOKER 7 -->
+    <div class="box-outer" id="outer-d7" onclick="toggleDetail('d7')">
+      <div class="box-outer-left">
+        <div class="box-title">🎓 Sparks English – Marketing Education (Part-Time)</div>
+        <div class="box-preview">📍 Jabodetabek · SMA/SMK ke atas</div>
+      </div>
+      <div class="box-arrow" id="arrow-d7">›</div>
+    </div>
+    <div class="box-detail" id="d7">
+      <span class="info-value">🔥 Perhatian para pencari kerja part-time! Kami sedang #membuka lowongan untuk posisi Marketing Education Specialist (Part-Time) area Jabodetabek! 🔥
+
+✨ Bergabunglah bersama Sparks English (Seven Retail) – tim yang energik dalam membantu siswa menemukan cara belajar bahasa Inggris yang seru dan efektif!
+
+📍 Penempatan: Area Jabodetabek
+
+Kualifikasi:
+* Minimal lulusan SMA/SMK atau sederajat
+* Komunikatif, percaya diri, dan energik
+* Memiliki pengalaman di bidang sales atau promosi menjadi nilai tambah
+* Bersedia bekerja dengan sistem shift
+* Siap bergabung secepatnya
+
+Tanggung Jawab Utama:
+* Mempromosikan dan memperkenalkan produk Sparks English
+* Membangun hubungan baik dengan pelanggan
+* Mencapai target penjualan harian maupun mingguan
+
+💡 Kenapa Bergabung dengan Kami?
+* Lingkungan kerja yang seru dan teamwork yang solid
+* Kesempatan berkembang dan mendapatkan penghasilan lebih
+
+Lamar sekarang: 
+https://bit.ly/Apply-MarketingEducation-SparksEnglish
+
+Hanya kandidat yang lolos seleksi yang akan dihubungi.</span>
+      <button class="btn-lamar" onclick="openPopup('https://bit.ly/Apply-MarketingEducation-SparksEnglish')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- LOKER 8 -->
+    <div class="box-outer" id="outer-d8" onclick="toggleDetail('d8')">
+      <div class="box-outer-left">
+        <div class="box-title">🍜 Yaoyao Sauerkraut Fish – Waiter</div>
+        <div class="box-preview">📍 MKG, Lippo Mall Puri, Grand Indonesia</div>
+      </div>
+      <div class="box-arrow" id="arrow-d8">›</div>
+    </div>
+    <div class="box-detail" id="d8">
+      <span class="info-value">Yaoyao Sauekraut Fish Indonesia ! is hiring !!
+DW Waiter
+penempatan di Gafoy, Mall Kelapa Gading, Lippo Mall Puri dan Grand Indonesia
+mohon kirim cv nya ke wa 081779134456/Bu Putri</span>
+      <button class="btn-wa-lamar" onclick="openPopup('https://wa.me/6281779134456')">📲 Lamar via WhatsApp</button>
+    </div>
+
+    <!-- LOKER 9 -->
+    <div class="box-outer" id="outer-d9" onclick="toggleDetail('d9')">
+      <div class="box-outer-left">
+        <div class="box-title">💼 PT Bina Informatika Solusi – Account Manager</div>
+        <div class="box-preview">📍 Cirebon · Internet Service Provider</div>
+      </div>
+      <div class="box-arrow" id="arrow-d9">›</div>
+    </div>
+    <div class="box-detail" id="d9">
+      <span class="info-value">We're hiring!
+Account Manager 
+Hai jobseeker✨✨
+
+PT. Bina Informatika Solusi merupakan perusahan Internet Service Provider. Saat ini kami sedang membutuhkan karyawan posisi Account Manager Cirebon
+
+Jika berminat dan sesuai dengan kualifikasi boleh kirimkan CV dan Lamaran beserta kelengkapan lainnya dalam format PDF.
+Email : hrd@fibertrust.id
+Subject : Account Manager_NAMA
+Cp :0895357367509</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:hrd@fibertrust.id')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 10 -->
+    <div class="box-outer" id="outer-d10" onclick="toggleDetail('d10')">
+      <div class="box-outer-left">
+        <div class="box-title">🌿 PT Natura Pesona Mandiri – Internship</div>
+        <div class="box-preview">📍 Puri Indah, West Jakarta · HR & GA</div>
+      </div>
+      <div class="box-arrow" id="arrow-d10">›</div>
+    </div>
+    <div class="box-detail" id="d10">
+      <span class="info-value">PT Natura Pesona Mandiri is hiring
+Placement: Puri Indah, West Jakarta
+⭐️ Human Resources Internship
+⭐️ General Affairs Internship
+
+Send your CV to: hrdnpm.jkt@gmail.com</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:hrdnpm.jkt@gmail.com')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 11 -->
+    <div class="box-outer" id="outer-d11" onclick="toggleDetail('d11')">
+      <div class="box-outer-left">
+        <div class="box-title">🧪 Mayora Group – Talent Acquisition</div>
+        <div class="box-preview">📍 Tenjolaya, Bandung · S1 Psikologi</div>
+      </div>
+      <div class="box-arrow" id="arrow-d11">›</div>
+    </div>
+    <div class="box-detail" id="d11">
+      <span class="info-value">PT. Tirta Fresindo Jaya (Mayora Group) is Hiring 𝐓𝐚𝐥𝐞𝐧𝐭 𝐀𝐜𝐪𝐮𝐢𝐬𝐢𝐭𝐢𝐨𝐧 (Tenjolaya, Bandung)
+
+Responsibilities
+1. Manage the full recruitment cycle (job posting, screening, interviewing, and onboarding)
+2. Source candidates through job portals, social media, and networking
+3. Conduct interviews and coordinate with staff and supervisors
+4. Maintain and update recruitment databases
+5. Ensure a positive candidate experience throughout the hiring process
+
+Qualifications
+1. Bachelor's degree in Psychology
+2. Proven experience as a Talent Acquisition Specialist, Recruiter, or similar role
+3. Strong knowledge of recruitment techniques and hiring best practices
+4. Excellent communication and interpersonal skills
+5. Ability to work in a fast-paced environment
+6. 𝐖𝐢𝐥𝐥𝐢𝐧𝐠 𝐭𝐨 𝐰𝐨𝐫𝐤 𝐨𝐧 𝐌𝐨𝐧𝐝𝐚𝐲 - 𝐒𝐚𝐭𝐮𝐫𝐝𝐚𝐲
+
+📧 How to Apply:
+Please send your CV to recruitment.hq@mayora.co.id with the email
+subject: TA Bandung_Domicile</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:recruitment.hq@mayora.co.id')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 12 -->
+    <div class="box-outer" id="outer-d12" onclick="toggleDetail('d12')">
+      <div class="box-outer-left">
+        <div class="box-title">⚓ PT Patria Maritime Lines – Crewing Internship</div>
+        <div class="box-preview">📍 Head Office, Jakarta Timur · Astra Group</div>
+      </div>
+      <div class="box-arrow" id="arrow-d12">›</div>
+    </div>
+    <div class="box-detail" id="d12">
+      <span class="info-value">‼️WE'RE HIRING‼️
+
+PT Patria Maritime Lines (PATRIA Subsidiary, Member of Astra) membuka kesempatan untuk internship posisi "Crewing Internship" penempatan Head Office, Jakarta Timur.
+
+Jika berminat bergabung dengan kami dan memiliki kriteria serta kompetensi yang sesuai dengan kebutuhan, silahkan kirimkan CV melalui form berikut: https://lnkd.in/gp5fdxU9
+
+Perlu Diingat.!
+(PT Patria Maritime Lines TIDAK MEMUNGUT BIAYA dalam setiap proses rekrutmen baik untuk Office atau Crew Kapal)</span>
+      <button class="btn-lamar" onclick="openPopup('https://lnkd.in/gp5fdxU9')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- COPY BLOK INI TIAP ADA LOKER BARU -->
+    <!--
+    <div class="box-outer" id="outer-d13" onclick="toggleDetail('d13')">
+      <div class="box-outer-left">
+        <div class="box-title">💼 NAMA POSISI</div>
+        <div class="box-preview">Info singkat...</div>
+      </div>
+      <div class="box-arrow" id="arrow-d13">›</div>
+    </div>
+    <div class="box-detail" id="d13">
+      <span class="info-value">Paste info loker persis dari notes di sini...</span>
+      <button class="btn-lamar" onclick="openPopup('https://LINK.com')">🌐 Lamar di sini!</button>
+    </div>
+    -->
+
+    <div class="group-section">
+      <h3>🌸 Gabung Grup Kami</h3>
+      <p>Dapat info loker lebih cepat!</p>
+      <a class="btn-group" href="https://chat.whatsapp.com/FFabFQqDoO4HonfpPx0HSs?mode=gi_t" target="_blank">💼 Grup Riset & Casting</a>
+      <a class="btn-group" href="https://chat.whatsapp.com/BqkkMvn5FmjHcrqcsMVaCj" target="_blank">🎁 Grup Free Produk</a>
+    </div>
+
+  </div>
+
+  <script>
+    let targetLink = null;
+    let timerDone = false;
+
+    function toggleDetail(id) {
+      const detail = document.getElementById(id);
+      const arrow = document.getElementById('arrow-' + id);
+      const outer = document.getElementById('outer-' + id);
+      const isActive = detail.classList.contains('active');
+      document.querySelectorAll('.box-detail').forEach(d => d.classList.remove('active'));
+      document.querySelectorAll('.box-arrow').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.box-outer').forEach(o => o.classList.remove('open'));
+      if (!isActive) {
+        detail.classList.add('active');
+        arrow.classList.add('open');
+        outer.classList.add('open');
+      }
+    }
+
+    function openPopup(link) {
+      targetLink = link;
+      timerDone = false;
+      document.getElementById('lanjutBtn').style.display = 'none';
+      document.getElementById('timerText').textContent = 'Klik link di atas dulu ya!';
+      document.getElementById('popup').classList.add('active');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('active');
+      if (targetLink) {
+        window.open(targetLink, '_blank');
+        targetLink = null;
+      }
+    }
+
+    function startTimer() {
+      if (timerDone) return;
+      let sisa = 5;
+      const timerText = document.getElementById('timerText');
+      const lanjutBtn = document.getElementById('lanjutBtn');
+      timerText.textContent = 'Tunggu ' + sisa + ' detik...';
+      const interval = setInterval(() => {
+        sisa--;
+        timerText.textContent = 'Tunggu ' + sisa + ' detik...';
+        if (sisa <= 0) {
+          clearInterval(interval);
+          timerDone = true;
+          lanjutBtn.style.display = 'block';
+          timerText.textContent = '✅ Yeay bisa lanjut!';
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
