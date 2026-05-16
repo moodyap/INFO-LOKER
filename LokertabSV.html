@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <title>Info Loker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; }
+    body { background: rgb(228, 185, 211); font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .popup { display: none; position: fixed; inset: 0; background: rgba(255,220,235,0.97); z-index: 999; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
+    .popup.active { display: flex; }
+    .popup-box { background: white; border: 2px solid #f4a7c0; border-radius: 20px; padding: 28px 22px; max-width: 360px; width: 100%; text-align: center; }
+    .popup-box h2 { color: #c2607a; font-size: 1.1rem; margin-bottom: 8px; }
+    .popup-box p { color: #888; font-size: 0.75rem; line-height: 1.7; margin-bottom: 12px; }
+    .btn-iklan { display: block; background: #f4a7c0; color: white; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; text-align: center; margin-top: 8px; }
+    .btn-lanjut-popup { display: none; width: 100%; background: #78c478; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer; margin-top: 8px; }
+    .timer-text { font-size: 0.68rem; color: #bbb; margin-top: 8px; }
+    .header { background: #f4a7c0; text-align: center; padding: 24px 16px; border-bottom: 2px solid #e87fa5; }
+    .header h1 { color: white; font-size: 1.5rem; margin: 0; }
+    .header p { color: white; font-size: 0.8rem; margin-top: 6px; }
+    .content { padding: 16px; max-width: 480px; margin: 0 auto; }
+    .box-outer { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 16px 18px; margin-bottom: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+    .box-outer.open { border-radius: 16px 16px 0 0; border-bottom: none; }
+    .box-outer:hover { background: #fff5f8; }
+    .box-outer-left { flex: 1; }
+    .box-title { font-size: 0.95rem; font-weight: bold; color: #c2607a; margin-bottom: 4px; }
+    .box-preview { font-size: 0.70rem; color: #aaa; line-height: 1.5; }
+    .box-arrow { color: #f4a7c0; font-size: 1.4rem; margin-left: 10px; transition: transform 0.2s; }
+    .box-arrow.open { transform: rotate(90deg); }
+    .box-detail { display: none; background: #fff9fb; border: 1.5px solid #f4d0dc; border-top: none; border-radius: 0 0 16px 16px; padding: 16px 18px; margin-bottom: 16px; }
+    .box-detail.active { display: block; }
+    .info-value { font-size: 0.73rem; color: #5a3d48; font-weight: bold; line-height: 1.9; white-space: pre-line; display: block; }
+    .btn-lamar { display: block; background: #f4a7c0; color: white; text-decoration: none; padding: 13px; border-radius: 10px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-top: 14px; border: none; cursor: pointer; width: 100%; }
+    .btn-wa-lamar { display: block; background: #78c478; color: white; text-decoration: none; padding: 13px; border-radius: 10px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-top: 10px; border: none; cursor: pointer; width: 100%; }
+    .group-section { background: white; border: 1.5px solid #f4d0dc; border-radius: 16px; padding: 18px; margin: 16px 0 20px; text-align: center; }
+    .group-section h3 { color: #c2607a; font-size: 0.9rem; margin-bottom: 4px; }
+    .group-section p { color: #d4a0b0; font-size: 0.68rem; margin-bottom: 14px; }
+    .btn-group { display: block; background: #78c478; color: white; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; text-align: center; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="popup" id="popup">
+    <div class="popup-box">
+      <div>🌸</div>
+      <h2>Bentar ya!</h2>
+      <p>Ads dulu ya, sebelum akses info lengkap lokernya! 🌸</p>
+      <a class="btn-iklan" href="https://s.shopee.co.id/qgNJPXi5y" target="_blank" onclick="startTimer()">
+        👀 Intip dulu yuk
+      </a>
+      <button class="btn-lanjut-popup" id="lanjutBtn" onclick="closePopup()">
+        ✅ Sudah Lihat — Lanjut Lamar!
+      </button>
+      <p class="timer-text" id="timerText">Klik link di atas dulu ya!</p>
+    </div>
+  </div>
+
+  <div class="header">
+    <h1>💼 Info Loker</h1>
+    <p>Info loker terpercaya 🌸</p>
+  </div>
+
+  <div class="content">
+
+    <!-- LOKER 1 -->
+    <div class="box-outer" id="outer-d1" onclick="toggleDetail('d1')">
+      <div class="box-outer-left">
+        <div class="box-title">🚗 PT Penta Artha Impressi (BOS) – Tax Staff</div>
+        <div class="box-preview">Indomobil Group · Min S1 Akuntansi/Pajak</div>
+      </div>
+      <div class="box-arrow" id="arrow-d1">›</div>
+    </div>
+    <div class="box-detail" id="d1">
+      <span class="info-value">PT Penta Artha Impressi (BOS | Member of Indomobil Group) sedang membuka posisi:
+
+𝗧𝗮𝘅 𝗦𝘁𝗮𝗳𝗳
+
+𝗞𝘂𝗮𝗹𝗶𝗳𝗶𝗸𝗮𝘀𝗶:
+• Pendidikan min. S1 dari jurusan Akuntansi, Keuangan, atau Pajak
+• Memiliki pengalaman min. 1 tahun di bidang pajak
+• Terampil dalam mengoperasikan Ms. Office dan Aplikasi Pajak (e-Faktur, e-Bupot, e-Filing, Coretax)
+• Teliti dan rapi dalam mengelola dokumen
+• Memahami regulasi perpajakan termasuk perubahan terbaru
+
+𝗧𝘂𝗴𝗮𝘀 & 𝗧𝗮𝗻𝗴𝗴𝘂𝗻𝗴 𝗝𝗮𝘄𝗮𝗯:
+• Membayar dan melaporkan pajak dengan tepat waktu
+• Melakukan ekualisasi PPN serta rekonsiliasi pajak secara berkala
+• Menyiapkan dokumen untuk audit pajak dan pelaporan SPT Tahunan Badan
+
+Subject: Tax Staff - Full Name</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:recruitment@bengkelbos.co.id')">📧 Lamar via Email</button>
+      <button class="btn-wa-lamar" onclick="openPopup('https://wa.me/6208950747562')">📲 Lamar via WhatsApp</button>
+    </div>
+
+    <!-- LOKER 2 -->
+    <div class="box-outer" id="outer-d2" onclick="toggleDetail('d2')">
+      <div class="box-outer-left">
+        <div class="box-title">👥 PT Empat Pilar Adidaya – HRGA Officer</div>
+        <div class="box-preview">📍 Head Office, Jakarta</div>
+      </div>
+      <div class="box-arrow" id="arrow-d2">›</div>
+    </div>
+    <div class="box-detail" id="d2">
+      <span class="info-value">PT Empat Pilar Adidaya is currently looking for an HRGA Officer for placement at our Head Office – Jakarta.
+
+We are seeking candidates who are passionate in Human Resources & General Affairs, possess good communication skills, and are ready to support daily HRGA operational activities.
+
+📍 Placement: Head Office – Jakarta</span>
+      <button class="btn-lamar" onclick="openPopup('https://docs.google.com/forms/d/e/1FAIpQLSf5Sd2yrHOQN2ygNW3_cFW_xOFxHkB7_UbnVlFWIzV236w5gA/viewform')">🌐 Apply via Google Form</button>
+    </div>
+
+    <!-- LOKER 3 -->
+    <div class="box-outer" id="outer-d3" onclick="toggleDetail('d3')">
+      <div class="box-outer-left">
+        <div class="box-title">💄 ESQA – Event & Partnership Intern</div>
+        <div class="box-preview">📍 South Jakarta · Hybrid · 6 Bulan</div>
+      </div>
+      <div class="box-arrow" id="arrow-d3">›</div>
+    </div>
+    <div class="box-detail" id="d3">
+      <span class="info-value">ESQA is hiring: Event & Partnership Intern! 🌟
+
+Requirements:
+• Final-year college student or recent graduate
+• Available for a 6-month internship period
+• Willing to work on-site at ESQA Headquarters
+• Proficient in Microsoft Office (Excel, PowerPoint)
+• Strong communication skills
+• Experience in event planning is a plus
+• Comfortable with frequent mobile working
+
+Key Responsibilities:
+• Assist in the development and execution of marketing strategies
+• Identify and qualify new partnership opportunities
+• Build and maintain relationships with potential partners
+• Support the planning and execution of marketing events and brand activations
+
+📍 South Jakarta (Hybrid)
+Subject: Event & Partnership Intern – Your Name</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:people.recruitment@esqacosmetics.com')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- LOKER 4 -->
+    <div class="box-outer" id="outer-d4" onclick="toggleDetail('d4')">
+      <div class="box-outer-left">
+        <div class="box-title">🍽️ Boga Group – Internship Batch 2</div>
+        <div class="box-preview">F&B Industry · Mahasiswa & Fresh Graduate</div>
+      </div>
+      <div class="box-arrow" id="arrow-d4">›</div>
+    </div>
+    <div class="box-detail" id="d4">
+      <span class="info-value">Boga Career Internship Program Batch 2
+
+Hadir untuk mahasiswa aktif dan fresh graduate yang ingin mendapatkan real experience langsung di industri F&B.
+
+Dari operational hingga head office function, setiap pengalaman dirancang untuk membantu kamu berkembang, belajar, dan mengenal dunia kerja secara lebih nyata.
+
+Let's build your career with Boga Group!</span>
+      <button class="btn-lamar" onclick="openPopup('https://linktr.ee/BogaCareerPartnership')">🌐 Apply di sini!</button>
+    </div>
+
+    <!-- LOKER 5 -->
+    <div class="box-outer" id="outer-d5" onclick="toggleDetail('d5')">
+      <div class="box-outer-left">
+        <div class="box-title">🎙️ SEMA – Voice Over TTS Bahasa Indonesia</div>
+        <div class="box-preview">Casting Online · Deadline 19 Mei 2026</div>
+      </div>
+      <div class="box-arrow" id="arrow-d5">›</div>
+    </div>
+    <div class="box-detail" id="d5">
+      <span class="info-value">OPEN CASTING VOICE OVER
+TEXT TO SPEECH (TTS) BAHASA INDONESIA
+
+KUALIFIKASI:
+- Pria & Wanita
+- Pemula/Amatir boleh ikut casting
+- Terbuka seluruh Indonesia
+- Casting Online
+
+📅 Deadline: 19 Mei 2026 Pukul 09.59 WIB
+
+Semua projek Sema tidak dipungut biaya apapun.</span>
+      <button class="btn-lamar" onclick="openPopup('https://s.id/VOTTSIDSEMA260430')">🌐 Detail & Kirim Audio</button>
+    </div>
+
+    <!-- LOKER 6 -->
+    <div class="box-outer" id="outer-d6" onclick="toggleDetail('d6')">
+      <div class="box-outer-left">
+        <div class="box-title">🎙️ SEMA – Voice Over TTS 15 Languages</div>
+        <div class="box-preview">Casting Online · Deadline 19 Mei 2026</div>
+      </div>
+      <div class="box-arrow" id="arrow-d6">›</div>
+    </div>
+    <div class="box-detail" id="d6">
+      <span class="info-value">OPEN CASTING VOICE OVER
+TEXT TO SPEECH (TTS) — 15 LANGUAGES
+
+Arabic, Brazilian Portuguese, English, Filipino, French, German, Italian, Japanese, Korean, Malay, Mexican Spanish, Russian, Spanish (Spain), Thai, Vietnamese
+
+Qualification:
+- Male & Female
+- No age limit
+- Beginners can register
+- Casting Online
+
+📅 Deadline: May 19, 2026 — 09.59 AM (GMT+7)
+
+All Sema projects are free of charge.</span>
+      <button class="btn-lamar" onclick="openPopup('https://s.id/VOTTS15Lang2604')">🌐 Detail & Kirim Audio</button>
+    </div>
+
+    <!-- LOKER 7 -->
+    <div class="box-outer" id="outer-d7" onclick="toggleDetail('d7')">
+      <div class="box-outer-left">
+        <div class="box-title">☕ Blanc Space Coffee – Part Time Barista</div>
+        <div class="box-preview">📍 Cibubur, Kranggan & sekitarnya</div>
+      </div>
+      <div class="box-arrow" id="arrow-d7">›</div>
+    </div>
+    <div class="box-detail" id="d7">
+      <span class="info-value">WE'RE HIRING!!
+Part time Barista
+
+- Fresh graduate / mahasiswa dipersilakan
+- Tertarik belajar dunia kopi
+- Ramah, komunikatif, dan cepat belajar
+- Siap bekerja di jam yang fleksibel
+- Domisili Cibubur, Kranggan & sekitarnya</span>
+      <button class="btn-lamar" onclick="openPopup('mailto:blancspacencoffee@gmail.com')">📧 Lamar via Email</button>
+    </div>
+
+    <!-- COPY BLOK INI TIAP ADA LOKER BARU -->
+    <!--
+    <div class="box-outer" id="outer-d8" onclick="toggleDetail('d8')">
+      <div class="box-outer-left">
+        <div class="box-title">💼 NAMA POSISI</div>
+        <div class="box-preview">Info singkat...</div>
+      </div>
+      <div class="box-arrow" id="arrow-d8">›</div>
+    </div>
+    <div class="box-detail" id="d8">
+      <span class="info-value">Paste info loker di sini, hapus link/email/WA dari teks...</span>
+      <button class="btn-lamar" onclick="openPopup('https://LINK.com')">🌐 Lamar di sini!</button>
+    </div>
+    -->
+
+    <div class="group-section">
+      <h3>🌸 Gabung Grup Kami</h3>
+      <p>Dapat info loker lebih cepat!</p>
+      <a class="btn-group" href="https://chat.whatsapp.com/FFabFQqDoO4HonfpPx0HSs?mode=gi_t" target="_blank">💼 Grup Riset & Casting</a>
+      <a class="btn-group" href="https://chat.whatsapp.com/BqkkMvn5FmjHcrqcsMVaCj" target="_blank">🎁 Grup Free Produk</a>
+    </div>
+
+  </div>
+
+  <script>
+    let targetLink = null;
+    let timerDone = false;
+
+    function toggleDetail(id) {
+      const detail = document.getElementById(id);
+      const arrow = document.getElementById('arrow-' + id);
+      const outer = document.getElementById('outer-' + id);
+      const isActive = detail.classList.contains('active');
+      document.querySelectorAll('.box-detail').forEach(d => d.classList.remove('active'));
+      document.querySelectorAll('.box-arrow').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.box-outer').forEach(o => o.classList.remove('open'));
+      if (!isActive) {
+        detail.classList.add('active');
+        arrow.classList.add('open');
+        outer.classList.add('open');
+      }
+    }
+
+    function openPopup(link) {
+      targetLink = link;
+      timerDone = false;
+      document.getElementById('lanjutBtn').style.display = 'none';
+      document.getElementById('timerText').textContent = 'Klik link di atas dulu ya!';
+      document.getElementById('popup').classList.add('active');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('active');
+      if (targetLink) {
+        window.open(targetLink, '_blank');
+        targetLink = null;
+      }
+    }
+
+    function startTimer() {
+      if (timerDone) return;
+      let sisa = 5;
+      const timerText = document.getElementById('timerText');
+      const lanjutBtn = document.getElementById('lanjutBtn');
+      timerText.textContent = 'Tunggu ' + sisa + ' detik...';
+      const interval = setInterval(() => {
+        sisa--;
+        timerText.textContent = 'Tunggu ' + sisa + ' detik...';
+        if (sisa <= 0) {
+          clearInterval(interval);
+          timerDone = true;
+          lanjutBtn.style.display = 'block';
+          timerText.textContent = '✅ Yeay bisa lanjut!';
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
